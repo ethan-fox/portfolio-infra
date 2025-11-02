@@ -1,6 +1,6 @@
-# FastAPI Backend Infrastructure on GCP Cloud Run
+# Portfolio Infrastructure 
 
-OpenTofu infrastructure for deploying a FastAPI backend to Google Cloud Run with scale-to-zero capabilities, Secret Manager integration, and GitHub Actions CI/CD support.
+OpenTofu infrastructure for deploying a full-stack application to Google Cloud Run with scale-to-zero capabilities, Secret Manager integration, and GitHub Actions CI/CD support.
 
 ## Architecture
 
@@ -30,14 +30,6 @@ Cloud Run Service
 | Cloud Build | $0 | 120 build-minutes/day free tier |
 | **Total** | **$0 - $11/month** | Likely $0 on free tier for hobby projects |
 
-## Infrastructure Components
-
-- **Cloud Run Service**: Serverless FastAPI container hosting
-- **Artifact Registry**: Docker image storage
-- **Secret Manager**: Secure storage for DATABASE_URL and API keys
-- **Service Account**: For GitHub Actions deployment automation
-- **IAM Bindings**: Minimal permissions for CI/CD pipeline
-
 ## Prerequisites
 
 - GCP account with billing enabled
@@ -63,16 +55,6 @@ gcloud auth application-default login
 5. **Storage Class**: Standard
 6. **Access Control**: Uniform
 7. Click **Create**
-
-**Enable versioning** (protects against accidental deletion):
-1. Click on your newly created bucket
-2. Go to **Protection** tab
-3. Under **Object Versioning**, click **Edit** and select **Enable**
-4. Set retention policy (optional):
-   - Click **Add Rule** under Lifecycle
-   - Action: **Delete object**
-   - Condition: **Number of newer versions** = 5 (keeps last 5 versions)
-5. Click **Save**
 
 ### 3. Configure OpenTofu Backend
 
