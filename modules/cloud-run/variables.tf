@@ -77,8 +77,3 @@ variable "database_url_secret" {
   description = "Name of the Secret Manager secret containing DATABASE_URL"
   type        = string
 }
-
-variable "api_keys_secret" {
-  description = "Name of the Secret Manager secret containing API_KEYS"
-  type        = string
-}

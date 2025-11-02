@@ -17,8 +17,3 @@ output "database_url_secret_name" {
   description = "Name of the database URL secret in Secret Manager"
   value       = google_secret_manager_secret.database_url.secret_id
 }
-
-output "api_keys_secret_name" {
-  description = "Name of the API keys secret in Secret Manager"
-  value       = google_secret_manager_secret.api_keys.secret_id
-}

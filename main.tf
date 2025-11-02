@@ -44,8 +44,8 @@ resource "google_project_service" "cloud_build" {
 
 resource "google_artifact_registry_repository" "backend" {
   location      = var.region
-  repository_id = "backend-images"
-  description   = "Docker repository for backend API images"
+  repository_id = "portfolio-images"
+  description   = "Docker repository for portfolio application images"
   format        = "DOCKER"
 
   depends_on = [google_project_service.artifact_registry]
@@ -53,16 +53,6 @@ resource "google_artifact_registry_repository" "backend" {
 
 resource "google_secret_manager_secret" "database_url" {
   secret_id = "database-url"
-
-  replication {
-    auto {}
-  }
-
-  depends_on = [google_project_service.secret_manager]
-}
-
-resource "google_secret_manager_secret" "api_keys" {
-  secret_id = "api-keys"
 
   replication {
     auto {}
@@ -101,6 +91,12 @@ resource "google_project_iam_member" "github_actions_service_account_user" {
   member  = "serviceAccount:${google_service_account.github_actions.email}"
 }
 
+resource "google_project_iam_member" "github_actions_secret_accessor" {
+  project = var.project_id
+  role    = "roles/secretmanager.secretAccessor"
+  member  = "serviceAccount:${google_service_account.github_actions.email}"
+}
+
 module "cloud_run" {
   source = "./modules/cloud-run"
 
@@ -115,11 +111,9 @@ module "cloud_run" {
   log_level      = var.log_level
 
   database_url_secret = google_secret_manager_secret.database_url.secret_id
-  api_keys_secret     = google_secret_manager_secret.api_keys.secret_id
 
   depends_on = [
     google_project_service.cloud_run,
-    google_secret_manager_secret.database_url,
-    google_secret_manager_secret.api_keys
+    google_secret_manager_secret.database_url
   ]
 }
