@@ -58,3 +58,9 @@ resource "google_project_iam_member" "github_actions_serviceusage_admin" {
   role    = "roles/serviceusage.serviceUsageAdmin"
   member  = "serviceAccount:${google_service_account.github_actions.email}"
 }
+
+resource "google_project_iam_member" "github_actions_project_iam_admin" {
+  project = var.project_id
+  role    = "roles/resourcemanager.projectIamAdmin"
+  member  = "serviceAccount:${google_service_account.github_actions.email}"
+}
