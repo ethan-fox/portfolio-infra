@@ -97,6 +97,27 @@ resource "google_project_iam_member" "github_actions_secret_accessor" {
   member  = "serviceAccount:${google_service_account.github_actions.email}"
 }
 
+# Additional permissions for infrastructure deployment via GitHub Actions
+# Allows the infra repo to manage resources via tofu apply
+
+resource "google_project_iam_member" "github_actions_service_account_admin" {
+  project = var.project_id
+  role    = "roles/iam.serviceAccountAdmin"
+  member  = "serviceAccount:${google_service_account.github_actions.email}"
+}
+
+resource "google_project_iam_member" "github_actions_secretmanager_admin" {
+  project = var.project_id
+  role    = "roles/secretmanager.admin"
+  member  = "serviceAccount:${google_service_account.github_actions.email}"
+}
+
+resource "google_project_iam_member" "github_actions_serviceusage_admin" {
+  project = var.project_id
+  role    = "roles/serviceusage.serviceUsageAdmin"
+  member  = "serviceAccount:${google_service_account.github_actions.email}"
+}
+
 module "cloud_run" {
   source = "./modules/cloud-run"
 
