@@ -5,7 +5,7 @@ region     = "us-central1"
 # Cloud Run Configuration
 service_name  = "backend-api"
 environment   = "dev"
-docker_image  = "gcr.io/cloudrun/placeholder"  # Will be updated by CI/CD
+docker_image  = "gcr.io/cloudrun/placeholder"  # Update based on image name 
 
 # Scaling Configuration
 min_instances = 0   # 0 = scale-to-zero (cost savings), 1 = always-warm
