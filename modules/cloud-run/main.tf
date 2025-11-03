@@ -63,9 +63,9 @@ resource "google_cloud_run_service" "backend" {
             path = "/health"
             port = 7050
           }
-          initial_delay_seconds = 0
-          timeout_seconds       = 1
-          period_seconds        = 3
+          initial_delay_seconds = 15
+          timeout_seconds       = 3
+          period_seconds        = 5
           failure_threshold     = 3
         }
 
