@@ -15,9 +15,11 @@ module "cloud_run" {
   log_level      = var.log_level
 
   database_url_secret = google_secret_manager_secret.database_url.secret_id
+  api_key_secret      = google_secret_manager_secret.api_key.secret_id
 
   depends_on = [
     google_project_service.cloud_run,
-    google_secret_manager_secret.database_url
+    google_secret_manager_secret.database_url,
+    google_secret_manager_secret.api_key
   ]
 }

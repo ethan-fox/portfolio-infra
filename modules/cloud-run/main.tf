@@ -54,6 +54,16 @@ resource "google_cloud_run_service" "backend" {
           }
         }
 
+        env {
+          name = "API_KEY"
+          value_from {
+            secret_key_ref {
+              name = var.api_key_secret
+              key  = "latest"
+            }
+          }
+        }
+
         ports {
           container_port = 7050
         }
