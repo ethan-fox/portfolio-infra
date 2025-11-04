@@ -17,7 +17,7 @@ resource "google_project_iam_member" "github_actions_run_admin" {
 
 resource "google_storage_bucket_iam_member" "github_actions_state_access" {
   bucket = "portfolio-terraform-state-072496"
-  role   = "roles/storage.objectAdmin"
+  role   = "roles/storage.legacyBucketOwner"
   member = "serviceAccount:${google_service_account.github_actions.email}"
 }
 
