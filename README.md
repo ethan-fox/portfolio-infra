@@ -42,9 +42,11 @@ git add .
 git commit -m "Made some changes"
 git push origin master  # Or, merge from PR
 
-git tag X.Y.Z
+git tag X.Y.Z  # IMPORTANT, tag must follow semver to trigger CI
 git push origin X.Y.Z
 ```
+
+This will trigger a Github Actions workflow, which you can view in the `Actions` tab. From there, based on the `Plan` you can decide whether or not to move forward with `Apply`.
 
 ## Reference Material
 
