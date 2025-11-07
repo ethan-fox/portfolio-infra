@@ -2,7 +2,7 @@
 # Serverless container deployment for portfolio API
 
 module "cloud_run" {
-  source = "./modules/cloud-run"
+  source = "../modules/cloud-run"
 
   project_id     = var.project_id
   region         = var.region
@@ -10,7 +10,6 @@ module "cloud_run" {
   image          = var.docker_image
   min_instances  = var.min_instances
   max_instances  = var.max_instances
-  cors_origins   = var.cors_origins
   environment    = var.environment
   log_level      = var.log_level
 
@@ -18,7 +17,6 @@ module "cloud_run" {
   api_key_secret      = google_secret_manager_secret.api_key.secret_id
 
   depends_on = [
-    google_project_service.cloud_run,
     google_secret_manager_secret.database_url,
     google_secret_manager_secret.api_key
   ]

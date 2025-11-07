@@ -55,12 +55,6 @@ variable "concurrency" {
   default     = 80
 }
 
-variable "cors_origins" {
-  description = "Comma-separated list of allowed CORS origins"
-  type        = string
-  default     = ""
-}
-
 variable "environment" {
   description = "Environment name (dev, staging, prod)"
   type        = string

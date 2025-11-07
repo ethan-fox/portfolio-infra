@@ -12,5 +12,8 @@ min_instances = 0   # 0 = scale-to-zero (cost savings), 1 = always-warm
 max_instances = 20  # Cost protection limit
 
 # Application Configuration
-cors_origins = "http://localhost:3000,http://localhost:5173"
 log_level    = "INFO"  # DEBUG, INFO, WARNING, ERROR
+
+# Frontend Configuration
+frontend_bucket_name = "portfolio-ui-frontend"
+domain_name          = "ethan-builds.com"
