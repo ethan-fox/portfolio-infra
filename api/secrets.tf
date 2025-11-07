@@ -4,8 +4,6 @@ resource "google_secret_manager_secret" "database_url" {
   replication {
     auto {}
   }
-
-  depends_on = [google_project_service.secret_manager]
 }
 
 resource "google_secret_manager_secret" "api_key" {
@@ -14,6 +12,4 @@ resource "google_secret_manager_secret" "api_key" {
   replication {
     auto {}
   }
-
-  depends_on = [google_project_service.secret_manager]
 }

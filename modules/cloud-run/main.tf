@@ -40,11 +40,6 @@ resource "google_cloud_run_service" "backend" {
         }
 
         env {
-          name  = "CORS_ORIGINS"
-          value = var.cors_origins
-        }
-
-        env {
           name = "DATABASE_URL"
           value_from {
             secret_key_ref {
@@ -109,11 +104,10 @@ resource "google_cloud_run_service" "backend" {
   }
 
   autogenerate_revision_name = true
-}
 
-resource "google_cloud_run_service_iam_member" "public_access" {
-  service  = google_cloud_run_service.backend.name
-  location = google_cloud_run_service.backend.location
-  role     = "roles/run.invoker"
-  member   = "allUsers"
+  metadata {
+    annotations = {
+      "run.googleapis.com/ingress" = "internal-and-cloud-load-balancing"
+    }
+  }
 }
