@@ -64,3 +64,15 @@ resource "google_project_iam_member" "github_actions_project_iam_admin" {
   role    = "roles/resourcemanager.projectIamAdmin"
   member  = "serviceAccount:${google_service_account.github_actions.email}"
 }
+
+resource "google_project_iam_member" "github_actions_compute_loadbalancer_admin" {
+  project = var.project_id
+  role    = "roles/compute.loadBalancerAdmin"
+  member  = "serviceAccount:${google_service_account.github_actions.email}"
+}
+
+resource "google_project_iam_member" "github_actions_compute_service_admin" {
+  project = var.project_id
+  role    = "roles/compute.serviceAdmin"
+  member  = "serviceAccount:${google_service_account.github_actions.email}"
+}
