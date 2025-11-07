@@ -21,34 +21,34 @@ provider "google" {
 module "api" {
   source = "./api"
 
-  project_id     = var.project_id
-  region         = var.region
-  service_name   = var.service_name
-  docker_image   = var.docker_image
-  min_instances  = var.min_instances
-  max_instances  = var.max_instances
-  environment    = var.environment
-  log_level      = var.log_level
+  project_id    = var.project_id
+  region        = var.region
+  service_name  = var.service_name
+  docker_image  = var.docker_image
+  min_instances = var.min_instances
+  max_instances = var.max_instances
+  environment   = var.environment
+  log_level     = var.log_level
 }
 
 # UI Frontend Resources
 module "ui" {
   source = "./ui"
 
-  project_id            = var.project_id
-  region                = var.region
-  frontend_bucket_name  = var.frontend_bucket_name
-  domain_name           = var.domain_name
+  project_id           = var.project_id
+  region               = var.region
+  frontend_bucket_name = var.frontend_bucket_name
+  domain_name          = var.domain_name
 }
 
 # Load Balancer Resources
 module "load_balancer" {
   source = "./load-balancer"
 
-  project_id              = var.project_id
-  region                  = var.region
-  frontend_bucket_name    = module.ui.frontend_bucket_name
-  cloud_run_service_name  = module.api.cloud_run_service_name
+  project_id             = var.project_id
+  region                 = var.region
+  frontend_bucket_name   = module.ui.frontend_bucket_name
+  cloud_run_service_name = module.api.cloud_run_service_name
 
   depends_on = [
     module.api,
