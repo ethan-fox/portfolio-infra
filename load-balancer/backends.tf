@@ -28,11 +28,10 @@ resource "google_compute_backend_bucket" "frontend" {
 
 # Backend service for API (Cloud Run)
 resource "google_compute_backend_service" "backend_api" {
-  name        = "backend-api-service"
-  protocol    = "HTTP"
-  port_name   = "http"
-  timeout_sec = 60
-  enable_cdn  = false
+  name       = "backend-api-service"
+  protocol   = "HTTP"
+  port_name  = "http"
+  enable_cdn = false
 
   backend {
     group = google_compute_region_network_endpoint_group.backend_neg.id

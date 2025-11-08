@@ -71,8 +71,8 @@ resource "google_project_iam_member" "github_actions_compute_loadbalancer_admin"
   member  = "serviceAccount:${google_service_account.github_actions.email}"
 }
 
-resource "google_project_iam_member" "github_actions_compute_service_admin" {
+resource "google_project_iam_member" "github_actions_compute_network_admin" {
   project = var.project_id
-  role    = "roles/compute.serviceAdmin"
+  role    = "roles/compute.networkAdmin"
   member  = "serviceAccount:${google_service_account.github_actions.email}"
 }
