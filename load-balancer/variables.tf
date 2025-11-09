@@ -17,3 +17,8 @@ variable "cloud_run_service_name" {
   description = "Name of the Cloud Run service"
   type        = string
 }
+
+variable "domain_name" {
+  description = "User-facing hostname for the Load balancer"
+type = string
+}

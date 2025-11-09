@@ -49,6 +49,7 @@ module "load_balancer" {
   region                 = var.region
   frontend_bucket_name   = module.ui.frontend_bucket_name
   cloud_run_service_name = module.api.cloud_run_service_name
+  domain_name            = var.domain_name
 
   depends_on = [
     module.api,
