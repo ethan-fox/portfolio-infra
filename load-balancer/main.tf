@@ -73,8 +73,8 @@ resource "google_compute_global_forwarding_rule" "frontend_http" {
   ip_address = google_compute_global_address.frontend.address
 }
 
-resource "google_compute_global_forwarding_rule" "frontend_https" {
-  name       = "frontend-https-forwarding-rule"
+resource "google_compute_global_forwarding_rule" "frontend_https_v2" {
+  name       = "frontend-https-forwarding-rule-v2"
   target     = google_compute_target_https_proxy.frontend.id
   port_range = "443"
   ip_address = google_compute_global_address.frontend.address
@@ -88,8 +88,8 @@ resource "google_compute_global_forwarding_rule" "backend_http" {
   ip_address = google_compute_global_address.backend.address
 }
 
-resource "google_compute_global_forwarding_rule" "backend_https" {
-  name       = "backend-https-forwarding-rule"
+resource "google_compute_global_forwarding_rule" "backend_https_v2" {
+  name       = "backend-https-forwarding-rule-v2"
   target     = google_compute_target_https_proxy.backend.id
   port_range = "443"
   ip_address = google_compute_global_address.backend.address
