@@ -10,16 +10,38 @@ resource "google_compute_global_address" "backend" {
   name = "backend-lb-ip"
 }
 
-# URL map for frontend
+# URL map for frontend HTTPS traffic
 resource "google_compute_url_map" "frontend" {
   name            = "frontend-url-map"
   default_service = google_compute_backend_bucket.frontend.id
 }
 
-# URL map for backend
+# URL map for frontend HTTP redirect to HTTPS
+resource "google_compute_url_map" "frontend_http_redirect" {
+  name = "frontend-http-redirect"
+
+  default_url_redirect {
+    https_redirect         = true
+    redirect_response_code = "MOVED_PERMANENTLY_DEFAULT"
+    strip_query            = false
+  }
+}
+
+# URL map for backend HTTPS traffic
 resource "google_compute_url_map" "backend" {
   name            = "backend-url-map"
   default_service = google_compute_backend_service.backend_api.id
+}
+
+# URL map for backend HTTP redirect to HTTPS
+resource "google_compute_url_map" "backend_http_redirect" {
+  name = "backend-http-redirect"
+
+  default_url_redirect {
+    https_redirect         = true
+    redirect_response_code = "MOVED_PERMANENTLY_DEFAULT"
+    strip_query            = false
+  }
 }
 
 # Managed SSL certificates
@@ -39,10 +61,10 @@ resource "google_compute_managed_ssl_certificate" "backend" {
   }
 }
 
-# HTTP proxy for frontend
+# HTTP proxy for frontend (redirects to HTTPS)
 resource "google_compute_target_http_proxy" "frontend" {
   name    = "frontend-http-proxy"
-  url_map = google_compute_url_map.frontend.id
+  url_map = google_compute_url_map.frontend_http_redirect.id
 }
 
 # HTTPS proxy for frontend
@@ -52,10 +74,10 @@ resource "google_compute_target_https_proxy" "frontend" {
   ssl_certificates = [google_compute_managed_ssl_certificate.frontend.id]
 }
 
-# HTTP proxy for backend
+# HTTP proxy for backend (redirects to HTTPS)
 resource "google_compute_target_http_proxy" "backend" {
   name    = "backend-http-proxy"
-  url_map = google_compute_url_map.backend.id
+  url_map = google_compute_url_map.backend_http_redirect.id
 }
 
 # HTTPS proxy for backend
