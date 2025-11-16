@@ -54,3 +54,15 @@ variable "domain_name" {
   description = "Domain name for the application (e.g., ethan-builds.com)"
   type        = string
 }
+
+variable "google_oauth_client_id" {
+  description = "Google OAuth Client ID"
+  type        = string
+  sensitive   = true
+}
+
+variable "google_oauth_client_secret" {
+  description = "Google OAuth Client Secret"
+  type        = string
+  sensitive   = true
+}

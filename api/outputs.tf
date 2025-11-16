@@ -17,3 +17,14 @@ output "database_url_secret_name" {
   description = "Name of the database URL secret in Secret Manager"
   value       = google_secret_manager_secret.database_url.secret_id
 }
+
+output "oauth_client_id" {
+  description = "Google OAuth Client ID (for frontend use)"
+  value       = var.google_oauth_client_id
+  sensitive   = true
+}
+
+output "identity_platform_config_name" {
+  description = "Identity Platform configuration name"
+  value       = google_identity_platform_config.default.name
+}
