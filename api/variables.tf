@@ -38,11 +38,6 @@ variable "log_level" {
   type        = string
 }
 
-variable "authorized_domains" {
-  description = "Domains authorized for OAuth redirects"
-  type        = list(string)
-}
-
 variable "google_oauth_client_id" {
   description = "Google OAuth Client ID"
   type        = string

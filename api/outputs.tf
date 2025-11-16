@@ -23,8 +23,3 @@ output "oauth_client_id" {
   value       = var.google_oauth_client_id
   sensitive   = true
 }
-
-output "identity_platform_config_name" {
-  description = "Identity Platform configuration name"
-  value       = google_identity_platform_config.default.name
-}

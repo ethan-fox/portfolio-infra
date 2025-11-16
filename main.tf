@@ -30,7 +30,6 @@ module "api" {
   environment   = var.environment
   log_level     = var.log_level
 
-  authorized_domains         = [var.domain_name, "localhost"]
   google_oauth_client_id     = var.google_oauth_client_id
   google_oauth_client_secret = var.google_oauth_client_secret
 }
