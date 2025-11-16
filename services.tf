@@ -49,10 +49,3 @@ resource "google_project_service" "identity_toolkit" {
 
   disable_on_destroy = false
 }
-
-resource "google_project_service" "identity_platform" {
-  project = var.project_id
-  service = "identityplatform.googleapis.com"
-
-  disable_on_destroy = false
-}
