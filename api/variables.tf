@@ -37,3 +37,20 @@ variable "log_level" {
   description = "Application log level (DEBUG, INFO, WARNING, ERROR)"
   type        = string
 }
+
+variable "authorized_domains" {
+  description = "Domains authorized for OAuth redirects"
+  type        = list(string)
+}
+
+variable "google_oauth_client_id" {
+  description = "Google OAuth Client ID"
+  type        = string
+  sensitive   = true
+}
+
+variable "google_oauth_client_secret" {
+  description = "Google OAuth Client Secret"
+  type        = string
+  sensitive   = true
+}
