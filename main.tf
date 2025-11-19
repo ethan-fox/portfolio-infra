@@ -30,8 +30,7 @@ module "api" {
   environment   = var.environment
   log_level     = var.log_level
 
-  google_oauth_client_id     = var.google_oauth_client_id
-  google_oauth_client_secret = var.google_oauth_client_secret
+  google_oauth_client_id = var.google_oauth_client_id
 }
 
 # UI Frontend Resources
