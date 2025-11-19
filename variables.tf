@@ -56,13 +56,7 @@ variable "domain_name" {
 }
 
 variable "google_oauth_client_id" {
-  description = "Google OAuth Client ID"
-  type        = string
-  sensitive   = true
-}
-
-variable "google_oauth_client_secret" {
-  description = "Google OAuth Client Secret"
+  description = "Google OAuth Client ID (for backend token validation)"
   type        = string
   sensitive   = true
 }
