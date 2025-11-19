@@ -59,6 +59,16 @@ resource "google_cloud_run_service" "backend" {
           }
         }
 
+        env {
+          name = "GOOGLE_OAUTH_CLIENT_ID"
+          value_from {
+            secret_key_ref {
+              name = var.oauth_client_id_secret
+              key  = "latest"
+            }
+          }
+        }
+
         ports {
           container_port = 7050
         }

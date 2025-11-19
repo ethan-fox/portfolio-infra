@@ -13,11 +13,13 @@ module "cloud_run" {
   environment   = var.environment
   log_level     = var.log_level
 
-  database_url_secret = google_secret_manager_secret.database_url.secret_id
-  api_key_secret      = google_secret_manager_secret.api_key.secret_id
+  database_url_secret      = google_secret_manager_secret.database_url.secret_id
+  api_key_secret           = google_secret_manager_secret.api_key.secret_id
+  oauth_client_id_secret   = google_secret_manager_secret.oauth_client_id.secret_id
 
   depends_on = [
     google_secret_manager_secret.database_url,
-    google_secret_manager_secret.api_key
+    google_secret_manager_secret.api_key,
+    google_secret_manager_secret.oauth_client_id
   ]
 }
