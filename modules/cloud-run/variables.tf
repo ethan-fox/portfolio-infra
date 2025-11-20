@@ -72,11 +72,6 @@ variable "database_url_secret" {
   type        = string
 }
 
-variable "api_key_secret" {
-  description = "Name of the Secret Manager secret containing API_KEY"
-  type        = string
-}
-
 variable "oauth_client_id_secret" {
   description = "Name of the Secret Manager secret containing Google OAuth Client ID"
   type        = string

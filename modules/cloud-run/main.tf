@@ -50,16 +50,6 @@ resource "google_cloud_run_service" "backend" {
         }
 
         env {
-          name = "API_KEY"
-          value_from {
-            secret_key_ref {
-              name = var.api_key_secret
-              key  = "latest"
-            }
-          }
-        }
-
-        env {
           name = "GOOGLE_OAUTH_CLIENT_ID"
           value_from {
             secret_key_ref {
