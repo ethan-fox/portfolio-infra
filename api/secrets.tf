@@ -6,14 +6,6 @@ resource "google_secret_manager_secret" "database_url" {
   }
 }
 
-resource "google_secret_manager_secret" "api_key" {
-  secret_id = "api-key"
-
-  replication {
-    auto {}
-  }
-}
-
 resource "google_secret_manager_secret" "oauth_client_id" {
   secret_id = "oauth-client-id"
 
