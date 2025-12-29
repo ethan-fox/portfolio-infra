@@ -8,7 +8,7 @@ environment  = "PROD"
 docker_image = "us-central1-docker.pkg.dev/portfolio-477017/portfolio-images/portfolio-api:latest"
 
 # Scaling Configuration
-min_instances = 0  # 0 = scale-to-zero (cost savings), 1 = always-warm
+min_instances = 1  # 0 = scale-to-zero (cost savings), 1 = always-warm
 max_instances = 20 # Cost protection limit
 
 # Application Configuration
