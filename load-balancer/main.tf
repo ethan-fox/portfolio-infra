@@ -10,10 +10,30 @@ resource "google_compute_global_address" "backend" {
   name = "backend-lb-ip"
 }
 
-# URL map for frontend HTTPS traffic
+# URL map for frontend HTTPS traffic (host-based routing)
 resource "google_compute_url_map" "frontend" {
   name            = "frontend-url-map"
   default_service = google_compute_backend_bucket.frontend.id
+
+  host_rule {
+    hosts        = [var.domain_name]
+    path_matcher = "ethan-builds"
+  }
+
+  host_rule {
+    hosts        = [var.three_beasts_domain_name]
+    path_matcher = "three-beasts"
+  }
+
+  path_matcher {
+    name            = "ethan-builds"
+    default_service = google_compute_backend_bucket.frontend.id
+  }
+
+  path_matcher {
+    name            = "three-beasts"
+    default_service = google_compute_backend_bucket.three_beasts.id
+  }
 }
 
 # URL map for frontend HTTP redirect to HTTPS
@@ -53,6 +73,14 @@ resource "google_compute_managed_ssl_certificate" "frontend" {
   }
 }
 
+resource "google_compute_managed_ssl_certificate" "three_beasts" {
+  name = "three-beasts-ssl-cert"
+
+  managed {
+    domains = [var.three_beasts_domain_name]
+  }
+}
+
 resource "google_compute_managed_ssl_certificate" "backend" {
   name = "backend-ssl-cert"
 
@@ -67,11 +95,14 @@ resource "google_compute_target_http_proxy" "frontend" {
   url_map = google_compute_url_map.frontend_http_redirect.id
 }
 
-# HTTPS proxy for frontend
+# HTTPS proxy for frontend (supports both domains via multiple SSL certs)
 resource "google_compute_target_https_proxy" "frontend" {
   name             = "frontend-https-proxy"
   url_map          = google_compute_url_map.frontend.id
-  ssl_certificates = [google_compute_managed_ssl_certificate.frontend.id]
+  ssl_certificates = [
+    google_compute_managed_ssl_certificate.frontend.id,
+    google_compute_managed_ssl_certificate.three_beasts.id
+  ]
 }
 
 # HTTP proxy for backend (redirects to HTTPS)

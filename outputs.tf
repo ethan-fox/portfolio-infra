@@ -16,8 +16,13 @@ output "database_url_secret_name" {
 
 # Frontend Outputs
 output "frontend_bucket_name" {
-  description = "Name of the Cloud Storage bucket for frontend (upload destination)"
+  description = "Name of the Cloud Storage bucket for ethan-builds frontend (upload destination)"
   value       = module.ui.frontend_bucket_name
+}
+
+output "three_beasts_bucket_name" {
+  description = "Name of the Cloud Storage bucket for three-beasts frontend (upload destination)"
+  value       = module.three_beasts_web.frontend_bucket_name
 }
 
 # Load Balancer Outputs

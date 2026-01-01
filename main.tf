@@ -33,7 +33,7 @@ module "api" {
   google_oauth_client_id = var.google_oauth_client_id
 }
 
-# UI Frontend Resources
+# UI Frontend Resources (ethan-builds.com)
 module "ui" {
   source = "./ui"
 
@@ -43,18 +43,31 @@ module "ui" {
   domain_name          = var.domain_name
 }
 
+# Three Beasts Frontend Resources (three-beasts.com)
+module "three_beasts_web" {
+  source = "./three-beasts-web"
+
+  project_id           = var.project_id
+  region               = var.region
+  frontend_bucket_name = var.three_beasts_bucket_name
+  domain_name          = var.three_beasts_domain_name
+}
+
 # Load Balancer Resources
 module "load_balancer" {
   source = "./load-balancer"
 
-  project_id             = var.project_id
-  region                 = var.region
-  frontend_bucket_name   = module.ui.frontend_bucket_name
-  cloud_run_service_name = module.api.cloud_run_service_name
-  domain_name            = var.domain_name
+  project_id                   = var.project_id
+  region                       = var.region
+  frontend_bucket_name         = module.ui.frontend_bucket_name
+  domain_name                  = var.domain_name
+  three_beasts_bucket_name     = module.three_beasts_web.frontend_bucket_name
+  three_beasts_domain_name     = var.three_beasts_domain_name
+  cloud_run_service_name       = module.api.cloud_run_service_name
 
   depends_on = [
     module.api,
-    module.ui
+    module.ui,
+    module.three_beasts_web
   ]
 }
