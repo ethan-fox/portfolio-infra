@@ -11,10 +11,25 @@ resource "google_compute_region_network_endpoint_group" "backend_neg" {
   }
 }
 
-# Backend bucket for frontend (Cloud Storage)
+# Backend bucket for ethan-builds frontend (Cloud Storage)
 resource "google_compute_backend_bucket" "frontend" {
   name        = "frontend-backend-bucket"
   bucket_name = var.frontend_bucket_name
+  enable_cdn  = true
+
+  cdn_policy {
+    cache_mode       = "CACHE_ALL_STATIC"
+    default_ttl      = 3600
+    max_ttl          = 86400
+    client_ttl       = 3600
+    negative_caching = true
+  }
+}
+
+# Backend bucket for three-beasts frontend (Cloud Storage)
+resource "google_compute_backend_bucket" "three_beasts" {
+  name        = "three-beasts-backend-bucket"
+  bucket_name = var.three_beasts_bucket_name
   enable_cdn  = true
 
   cdn_policy {

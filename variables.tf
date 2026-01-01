@@ -60,3 +60,14 @@ variable "google_oauth_client_id" {
   type        = string
   sensitive   = true
 }
+
+# Three Beasts Frontend Configuration
+variable "three_beasts_bucket_name" {
+  description = "Name for the Cloud Storage bucket hosting Three Beasts frontend files"
+  type        = string
+}
+
+variable "three_beasts_domain_name" {
+  description = "Domain name for Three Beasts application (e.g., three-beasts.com)"
+  type        = string
+}
