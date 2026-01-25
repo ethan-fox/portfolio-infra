@@ -66,7 +66,7 @@ resource "google_compute_url_map" "backend_http_redirect" {
 
 # Managed SSL certificates
 resource "google_compute_managed_ssl_certificate" "frontend" {
-  name = "frontend-ssl-cert"
+  name = "frontend-ssl-cert-v2"
 
   managed {
     domains = [var.domain_name, "www.${var.domain_name}"]
@@ -74,7 +74,7 @@ resource "google_compute_managed_ssl_certificate" "frontend" {
 }
 
 resource "google_compute_managed_ssl_certificate" "three_beasts" {
-  name = "three-beasts-ssl-cert"
+  name = "three-beasts-ssl-cert-v2"
 
   managed {
     domains = [var.three_beasts_domain_name, "www.${var.three_beasts_domain_name}"]
