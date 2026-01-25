@@ -49,16 +49,6 @@ resource "google_cloud_run_service" "backend" {
           }
         }
 
-        env {
-          name = "GOOGLE_OAUTH_CLIENT_ID"
-          value_from {
-            secret_key_ref {
-              name = var.oauth_client_id_secret
-              key  = "latest"
-            }
-          }
-        }
-
         dynamic "env" {
           for_each = var.shop_with_mom_oauth_web_secret != "" ? [1] : []
           content {
@@ -73,12 +63,12 @@ resource "google_cloud_run_service" "backend" {
         }
 
         dynamic "env" {
-          for_each = var.shop_with_mom_oauth_ios_secret != "" ? [1] : []
+          for_each = var.shop_with_mom_jwt_secret != "" ? [1] : []
           content {
-            name = "SHOP_WITH_MOM_OAUTH_IOS_CLIENT_ID"
+            name = "SHOP_WITH_MOM_JWT_SECRET"
             value_from {
               secret_key_ref {
-                name = var.shop_with_mom_oauth_ios_secret
+                name = var.shop_with_mom_jwt_secret
                 key  = "latest"
               }
             }

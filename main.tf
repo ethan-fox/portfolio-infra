@@ -30,19 +30,17 @@ module "api" {
   environment   = var.environment
   log_level     = var.log_level
 
-  google_oauth_client_id = var.google_oauth_client_id
-
   shop_with_mom_oauth_web_secret = module.shop_with_mom.oauth_web_secret_name
-  shop_with_mom_oauth_ios_secret = module.shop_with_mom.oauth_ios_secret_name
+  shop_with_mom_jwt_secret       = module.shop_with_mom.jwt_secret_name
 }
 
-# Shop-with-Mom OAuth Resources
+# Shop-with-Mom Resources
 module "shop_with_mom" {
   source = "./shop-with-mom"
 
   project_id          = var.project_id
   oauth_web_client_id = var.shop_with_mom_oauth_web_client_id
-  oauth_ios_client_id = var.shop_with_mom_oauth_ios_client_id
+  jwt_secret          = var.shop_with_mom_jwt_secret
 }
 
 # UI Frontend Resources (ethan-builds.com)

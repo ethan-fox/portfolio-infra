@@ -55,12 +55,6 @@ variable "domain_name" {
   type        = string
 }
 
-variable "google_oauth_client_id" {
-  description = "Google OAuth Client ID (for backend token validation)"
-  type        = string
-  sensitive   = true
-}
-
 # Three Beasts Frontend Configuration
 variable "three_beasts_bucket_name" {
   description = "Name for the Cloud Storage bucket hosting Three Beasts frontend files"
@@ -72,15 +66,15 @@ variable "three_beasts_domain_name" {
   type        = string
 }
 
-# Shop-with-Mom OAuth Configuration
+# Shop-with-Mom Configuration
 variable "shop_with_mom_oauth_web_client_id" {
   description = "Google OAuth Client ID for shop-with-mom web platform"
   type        = string
   sensitive   = true
 }
 
-variable "shop_with_mom_oauth_ios_client_id" {
-  description = "Google OAuth Client ID for shop-with-mom iOS platform"
+variable "shop_with_mom_jwt_secret" {
+  description = "JWT secret for shop-with-mom token signing/verification (set via GHA secrets)"
   type        = string
   sensitive   = true
 }

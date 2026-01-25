@@ -9,8 +9,8 @@ variable "oauth_web_client_id" {
   sensitive   = true
 }
 
-variable "oauth_ios_client_id" {
-  description = "Google OAuth Client ID for iOS platform"
+variable "jwt_secret" {
+  description = "JWT secret for signing and verifying access tokens"
   type        = string
   sensitive   = true
 }
