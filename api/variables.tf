@@ -38,8 +38,14 @@ variable "log_level" {
   type        = string
 }
 
-variable "google_oauth_client_id" {
-  description = "Google OAuth Client ID (for backend token validation)"
+variable "shop_with_mom_oauth_web_secret" {
+  description = "Secret Manager secret name for shop-with-mom web OAuth client ID"
   type        = string
-  sensitive   = true
+  default     = ""
+}
+
+variable "shop_with_mom_jwt_secret" {
+  description = "Secret Manager secret name for shop-with-mom JWT secret"
+  type        = string
+  default     = ""
 }

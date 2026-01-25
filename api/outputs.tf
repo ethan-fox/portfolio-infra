@@ -18,8 +18,7 @@ output "database_url_secret_name" {
   value       = google_secret_manager_secret.database_url.secret_id
 }
 
-output "oauth_client_id" {
-  description = "Google OAuth Client ID (for frontend use)"
-  value       = var.google_oauth_client_id
-  sensitive   = true
+output "cloud_run_service_account_email" {
+  description = "Email of the Cloud Run service account"
+  value       = module.cloud_run.service_account_email
 }
