@@ -76,3 +76,15 @@ variable "oauth_client_id_secret" {
   description = "Name of the Secret Manager secret containing Google OAuth Client ID"
   type        = string
 }
+
+variable "shop_with_mom_oauth_web_secret" {
+  description = "Name of the Secret Manager secret containing shop-with-mom web OAuth Client ID"
+  type        = string
+  default     = ""
+}
+
+variable "shop_with_mom_oauth_ios_secret" {
+  description = "Name of the Secret Manager secret containing shop-with-mom iOS OAuth Client ID"
+  type        = string
+  default     = ""
+}

@@ -23,3 +23,8 @@ output "oauth_client_id" {
   value       = var.google_oauth_client_id
   sensitive   = true
 }
+
+output "cloud_run_service_account_email" {
+  description = "Email of the Cloud Run service account"
+  value       = module.cloud_run.service_account_email
+}

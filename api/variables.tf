@@ -43,3 +43,15 @@ variable "google_oauth_client_id" {
   type        = string
   sensitive   = true
 }
+
+variable "shop_with_mom_oauth_web_secret" {
+  description = "Secret Manager secret name for shop-with-mom web OAuth client ID"
+  type        = string
+  default     = ""
+}
+
+variable "shop_with_mom_oauth_ios_secret" {
+  description = "Secret Manager secret name for shop-with-mom iOS OAuth client ID"
+  type        = string
+  default     = ""
+}

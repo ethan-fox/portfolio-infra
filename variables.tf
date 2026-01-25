@@ -71,3 +71,16 @@ variable "three_beasts_domain_name" {
   description = "Domain name for Three Beasts application (e.g., three-beasts.com)"
   type        = string
 }
+
+# Shop-with-Mom OAuth Configuration
+variable "shop_with_mom_oauth_web_client_id" {
+  description = "Google OAuth Client ID for shop-with-mom web platform"
+  type        = string
+  sensitive   = true
+}
+
+variable "shop_with_mom_oauth_ios_client_id" {
+  description = "Google OAuth Client ID for shop-with-mom iOS platform"
+  type        = string
+  sensitive   = true
+}

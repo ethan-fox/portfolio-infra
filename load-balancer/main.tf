@@ -16,12 +16,12 @@ resource "google_compute_url_map" "frontend" {
   default_service = google_compute_backend_bucket.frontend.id
 
   host_rule {
-    hosts        = [var.domain_name]
+    hosts        = [var.domain_name, "www.${var.domain_name}"]
     path_matcher = "ethan-builds"
   }
 
   host_rule {
-    hosts        = [var.three_beasts_domain_name]
+    hosts        = [var.three_beasts_domain_name, "www.${var.three_beasts_domain_name}"]
     path_matcher = "three-beasts"
   }
 
@@ -69,7 +69,7 @@ resource "google_compute_managed_ssl_certificate" "frontend" {
   name = "frontend-ssl-cert"
 
   managed {
-    domains = [var.domain_name]
+    domains = [var.domain_name, "www.${var.domain_name}"]
   }
 }
 
@@ -77,7 +77,7 @@ resource "google_compute_managed_ssl_certificate" "three_beasts" {
   name = "three-beasts-ssl-cert"
 
   managed {
-    domains = [var.three_beasts_domain_name]
+    domains = [var.three_beasts_domain_name, "www.${var.three_beasts_domain_name}"]
   }
 }
 

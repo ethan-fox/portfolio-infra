@@ -59,6 +59,32 @@ resource "google_cloud_run_service" "backend" {
           }
         }
 
+        dynamic "env" {
+          for_each = var.shop_with_mom_oauth_web_secret != "" ? [1] : []
+          content {
+            name = "SHOP_WITH_MOM_OAUTH_WEB_CLIENT_ID"
+            value_from {
+              secret_key_ref {
+                name = var.shop_with_mom_oauth_web_secret
+                key  = "latest"
+              }
+            }
+          }
+        }
+
+        dynamic "env" {
+          for_each = var.shop_with_mom_oauth_ios_secret != "" ? [1] : []
+          content {
+            name = "SHOP_WITH_MOM_OAUTH_IOS_CLIENT_ID"
+            value_from {
+              secret_key_ref {
+                name = var.shop_with_mom_oauth_ios_secret
+                key  = "latest"
+              }
+            }
+          }
+        }
+
         ports {
           container_port = 7050
         }
