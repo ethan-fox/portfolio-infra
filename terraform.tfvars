@@ -9,7 +9,7 @@ docker_image = "us-central1-docker.pkg.dev/portfolio-477017/portfolio-images/por
 
 # Scaling Configuration
 min_instances = 1  # 0 = scale-to-zero (cost savings), 1 = always-warm
-max_instances = 20 # Cost protection limit
+max_instances = 2 # Cost protection limit
 
 # Application Configuration
 log_level = "INFO" # DEBUG, INFO, WARNING, ERROR
