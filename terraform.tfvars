@@ -8,7 +8,7 @@ environment  = "PROD"
 docker_image = "us-central1-docker.pkg.dev/portfolio-477017/portfolio-images/portfolio-api:latest"
 
 # Scaling Configuration
-min_instances = 1  # 0 = scale-to-zero (cost savings), 1 = always-warm
+min_instances = 1 # 0 = scale-to-zero (cost savings), 1 = always-warm
 max_instances = 2 # Cost protection limit
 
 # Application Configuration
@@ -21,6 +21,10 @@ domain_name          = "ethan-builds.com"
 # Three Beasts Frontend Configuration (three-beasts.com)
 three_beasts_bucket_name = "three-beasts-web-frontend"
 three_beasts_domain_name = "three-beasts.com"
+
+# Powerhands Frontend Configuration (powerhands.net)
+powerhands_bucket_name = "powerhands-client-frontend"
+powerhands_domain_name = "powerhands.net"
 
 # Shop with Mom OAuth
 shop_with_mom_oauth_web_client_id = "720950635621-m14nssm5oo38q0lfcbanc8cn6vsk79lm.apps.googleusercontent.com"

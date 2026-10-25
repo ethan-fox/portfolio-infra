@@ -25,6 +25,21 @@ output "three_beasts_bucket_name" {
   value       = module.three_beasts_web.frontend_bucket_name
 }
 
+output "powerhands_bucket_name" {
+  description = "Name of the Cloud Storage bucket for powerhands client (upload destination)"
+  value       = module.powerhands_web.frontend_bucket_name
+}
+
+output "powerhands_url" {
+  description = "Public URL of the powerhands client"
+  value       = module.powerhands.site_url
+}
+
+output "powerhands_api_url" {
+  description = "Public URL of the powerhands game server (Cloudflare Worker)"
+  value       = module.powerhands.api_url
+}
+
 # Load Balancer Outputs
 output "frontend_load_balancer_ip" {
   description = "Static IP for frontend load balancer - configure DNS: ethan-builds.com → this IP"

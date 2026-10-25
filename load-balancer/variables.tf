@@ -32,3 +32,12 @@ variable "three_beasts_domain_name" {
   description = "User-facing hostname for three-beasts.com"
   type        = string
 }
+variable "powerhands_bucket_name" {
+  description = "Name of the Cloud Storage bucket for powerhands client"
+  type        = string
+}
+
+variable "powerhands_domain_name" {
+  description = "User-facing hostname for powerhands.net"
+  type        = string
+}

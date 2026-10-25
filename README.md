@@ -48,6 +48,17 @@ git push origin X.Y.Z
 
 This will trigger a Github Actions workflow, which you can view in the `Actions` tab. From there, based on the `Plan` you can decide whether or not to move forward with `Apply`.
 
+## Cloudflare (powerhands.net)
+
+`powerhands.net` is registered with Cloudflare Registrar, so its zone lives in Cloudflare and is read via a data source, not managed. The `powerhands/` module manages its DNS records (pointing at the frontend load balancer) and the `api.powerhands.net` custom domain for the game server Worker. The Worker script is deployed by the powerhands repo's CI, and must exist before this module is first applied.
+
+The provider authenticates with the `CLOUDFLARE_API_TOKEN` repo secret, passed to OpenTofu as `TF_VAR_cloudflare_api_token`. Token permissions:
+
+- Zone / Zone / Read, Zone / DNS / Edit, and Zone / Workers Routes / Edit, scoped to `powerhands.net`
+- Account / Workers Scripts / Edit
+
+To plan locally: `export TF_VAR_cloudflare_api_token=...` before `tofu plan`.
+
 ## Reference Material
 
 * [Appendix](./docs/APPENDIX.md)

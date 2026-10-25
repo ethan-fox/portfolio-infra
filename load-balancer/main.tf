@@ -25,6 +25,11 @@ resource "google_compute_url_map" "frontend" {
     path_matcher = "three-beasts"
   }
 
+  host_rule {
+    hosts        = [var.powerhands_domain_name, "www.${var.powerhands_domain_name}"]
+    path_matcher = "powerhands"
+  }
+
   path_matcher {
     name            = "ethan-builds"
     default_service = google_compute_backend_bucket.frontend.id
@@ -33,6 +38,11 @@ resource "google_compute_url_map" "frontend" {
   path_matcher {
     name            = "three-beasts"
     default_service = google_compute_backend_bucket.three_beasts.id
+  }
+
+  path_matcher {
+    name            = "powerhands"
+    default_service = google_compute_backend_bucket.powerhands.id
   }
 }
 
@@ -81,6 +91,14 @@ resource "google_compute_managed_ssl_certificate" "three_beasts" {
   }
 }
 
+resource "google_compute_managed_ssl_certificate" "powerhands" {
+  name = "powerhands-ssl-cert"
+
+  managed {
+    domains = [var.powerhands_domain_name, "www.${var.powerhands_domain_name}"]
+  }
+}
+
 resource "google_compute_managed_ssl_certificate" "backend" {
   name = "backend-ssl-cert"
 
@@ -95,13 +113,14 @@ resource "google_compute_target_http_proxy" "frontend" {
   url_map = google_compute_url_map.frontend_http_redirect.id
 }
 
-# HTTPS proxy for frontend (supports both domains via multiple SSL certs)
+# HTTPS proxy for frontend (supports all frontend domains via multiple SSL certs)
 resource "google_compute_target_https_proxy" "frontend" {
-  name             = "frontend-https-proxy"
-  url_map          = google_compute_url_map.frontend.id
+  name    = "frontend-https-proxy"
+  url_map = google_compute_url_map.frontend.id
   ssl_certificates = [
     google_compute_managed_ssl_certificate.frontend.id,
-    google_compute_managed_ssl_certificate.three_beasts.id
+    google_compute_managed_ssl_certificate.three_beasts.id,
+    google_compute_managed_ssl_certificate.powerhands.id
   ]
 }
 
