@@ -66,6 +66,23 @@ variable "three_beasts_domain_name" {
   type        = string
 }
 
+# Powerhands Configuration
+variable "powerhands_bucket_name" {
+  description = "Name for the Cloud Storage bucket hosting the powerhands client"
+  type        = string
+}
+
+variable "powerhands_domain_name" {
+  description = "Domain name for powerhands (e.g., powerhands.net), registered with Cloudflare"
+  type        = string
+}
+
+variable "cloudflare_api_token" {
+  description = "Cloudflare API token for DNS and Workers custom domains (set via GHA secrets)"
+  type        = string
+  sensitive   = true
+}
+
 # Shop-with-Mom Configuration
 variable "shop_with_mom_oauth_web_client_id" {
   description = "Google OAuth Client ID for shop-with-mom web platform"

@@ -41,6 +41,21 @@ resource "google_compute_backend_bucket" "three_beasts" {
   }
 }
 
+# Backend bucket for powerhands client (Cloud Storage)
+resource "google_compute_backend_bucket" "powerhands" {
+  name        = "powerhands-backend-bucket"
+  bucket_name = var.powerhands_bucket_name
+  enable_cdn  = true
+
+  cdn_policy {
+    cache_mode       = "CACHE_ALL_STATIC"
+    default_ttl      = 3600
+    max_ttl          = 86400
+    client_ttl       = 3600
+    negative_caching = true
+  }
+}
+
 # Backend service for API (Cloud Run)
 resource "google_compute_backend_service" "backend_api" {
   name       = "backend-api-service"

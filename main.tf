@@ -9,12 +9,20 @@ terraform {
       source  = "hashicorp/google"
       version = "~> 5.0"
     }
+    cloudflare = {
+      source  = "cloudflare/cloudflare"
+      version = "~> 5.0"
+    }
   }
 }
 
 provider "google" {
   project = var.project_id
   region  = var.region
+}
+
+provider "cloudflare" {
+  api_token = var.cloudflare_api_token
 }
 
 # API Backend Resources
@@ -63,21 +71,42 @@ module "three_beasts_web" {
   domain_name          = var.three_beasts_domain_name
 }
 
+# Powerhands Frontend Resources (powerhands.net)
+module "powerhands_web" {
+  source = "./powerhands-web"
+
+  project_id           = var.project_id
+  region               = var.region
+  frontend_bucket_name = var.powerhands_bucket_name
+  domain_name          = var.powerhands_domain_name
+}
+
+# Powerhands DNS and game server domain (Cloudflare)
+module "powerhands" {
+  source = "./powerhands"
+
+  domain_name    = var.powerhands_domain_name
+  frontend_lb_ip = module.load_balancer.frontend_load_balancer_ip
+}
+
 # Load Balancer Resources
 module "load_balancer" {
   source = "./load-balancer"
 
-  project_id                   = var.project_id
-  region                       = var.region
-  frontend_bucket_name         = module.ui.frontend_bucket_name
-  domain_name                  = var.domain_name
-  three_beasts_bucket_name     = module.three_beasts_web.frontend_bucket_name
-  three_beasts_domain_name     = var.three_beasts_domain_name
-  cloud_run_service_name       = module.api.cloud_run_service_name
+  project_id               = var.project_id
+  region                   = var.region
+  frontend_bucket_name     = module.ui.frontend_bucket_name
+  domain_name              = var.domain_name
+  three_beasts_bucket_name = module.three_beasts_web.frontend_bucket_name
+  three_beasts_domain_name = var.three_beasts_domain_name
+  powerhands_bucket_name   = module.powerhands_web.frontend_bucket_name
+  powerhands_domain_name   = var.powerhands_domain_name
+  cloud_run_service_name   = module.api.cloud_run_service_name
 
   depends_on = [
     module.api,
     module.ui,
-    module.three_beasts_web
+    module.three_beasts_web,
+    module.powerhands_web
   ]
 }
