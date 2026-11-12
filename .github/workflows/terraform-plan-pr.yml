@@ -54,7 +54,6 @@ jobs:
         run: tofu plan -no-color -out=tfplan
         continue-on-error: true
         env:
-          TF_VAR_shop_with_mom_jwt_secret: ${{ secrets.SHOP_WITH_MOM_JWT_SECRET }}
           TF_VAR_cloudflare_api_token: ${{ secrets.CLOUDFLARE_API_TOKEN }}
 
       - name: Comment PR with Plan

@@ -62,19 +62,6 @@ resource "google_cloud_run_service" "backend" {
           }
         }
 
-        dynamic "env" {
-          for_each = var.shop_with_mom_jwt_secret != "" ? [1] : []
-          content {
-            name = "SHOP_WITH_MOM_JWT_SECRET"
-            value_from {
-              secret_key_ref {
-                name = var.shop_with_mom_jwt_secret
-                key  = "latest"
-              }
-            }
-          }
-        }
-
         ports {
           container_port = 7050
         }
