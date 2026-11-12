@@ -33,18 +33,28 @@ jobs:
       - name: Generate OpenTofu Plan
         run: tofu plan -out=tfplan.binary
         env:
-          TF_VAR_shop_with_mom_jwt_secret: ${{ secrets.SHOP_WITH_MOM_JWT_SECRET }}
           TF_VAR_cloudflare_api_token: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+
+      - name: Generate Human-Readable Plan
+        run: tofu show tfplan.binary > plan-output.txt
+
+      # Saved plans store input variables in plaintext and this repo is public,
+      # so the binary must never be uploaded unencrypted.
+      - name: Encrypt Plan
+        run: |
+          test -n "$PLAN_ENCRYPTION_KEY"
+          printf '%s' "$PLAN_ENCRYPTION_KEY" | gpg --batch --yes --pinentry-mode loopback \
+            --passphrase-fd 0 --symmetric --cipher-algo AES256 \
+            --output tfplan.binary.gpg tfplan.binary
+        env:
+          PLAN_ENCRYPTION_KEY: ${{ secrets.PLAN_ENCRYPTION_KEY }}
 
       - name: Upload Plan Artifact
         uses: actions/upload-artifact@v4
         with:
           name: tfplan
-          path: tfplan.binary
+          path: tfplan.binary.gpg
           retention-days: 5
-
-      - name: Generate Human-Readable Plan
-        run: tofu show tfplan.binary > plan-output.txt
 
       - name: Upload Plan Output
         uses: actions/upload-artifact@v4
@@ -84,10 +94,17 @@ jobs:
         with:
           name: tfplan
 
+      - name: Decrypt Plan
+        run: |
+          test -n "$PLAN_ENCRYPTION_KEY"
+          printf '%s' "$PLAN_ENCRYPTION_KEY" | gpg --batch --yes --pinentry-mode loopback \
+            --passphrase-fd 0 --decrypt --output tfplan.binary tfplan.binary.gpg
+        env:
+          PLAN_ENCRYPTION_KEY: ${{ secrets.PLAN_ENCRYPTION_KEY }}
+
       - name: Apply OpenTofu Plan
         run: tofu apply -auto-approve tfplan.binary
         env:
-          TF_VAR_shop_with_mom_jwt_secret: ${{ secrets.SHOP_WITH_MOM_JWT_SECRET }}
           TF_VAR_cloudflare_api_token: ${{ secrets.CLOUDFLARE_API_TOKEN }}
 
       - name: Output Results

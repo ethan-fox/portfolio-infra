@@ -89,9 +89,3 @@ variable "shop_with_mom_oauth_web_client_id" {
   type        = string
   sensitive   = true
 }
-
-variable "shop_with_mom_jwt_secret" {
-  description = "JWT secret for shop-with-mom token signing/verification (set via GHA secrets)"
-  type        = string
-  sensitive   = true
-}

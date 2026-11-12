@@ -16,7 +16,6 @@ module "cloud_run" {
   database_url_secret = google_secret_manager_secret.database_url.secret_id
 
   shop_with_mom_oauth_web_secret = var.shop_with_mom_oauth_web_secret
-  shop_with_mom_jwt_secret       = var.shop_with_mom_jwt_secret
 
   depends_on = [
     google_secret_manager_secret.database_url

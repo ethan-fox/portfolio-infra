@@ -43,9 +43,3 @@ variable "shop_with_mom_oauth_web_secret" {
   type        = string
   default     = ""
 }
-
-variable "shop_with_mom_jwt_secret" {
-  description = "Secret Manager secret name for shop-with-mom JWT secret"
-  type        = string
-  default     = ""
-}

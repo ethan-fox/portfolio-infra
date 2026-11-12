@@ -8,9 +8,3 @@ variable "oauth_web_client_id" {
   type        = string
   sensitive   = true
 }
-
-variable "jwt_secret" {
-  description = "JWT secret for signing and verifying access tokens"
-  type        = string
-  sensitive   = true
-}
